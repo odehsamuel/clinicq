@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import { Bell, Search, Settings } from "lucide-react";
+import { Bell, Check, Search, Settings, X } from "lucide-react";
 
 export const metadata = {
   title: "Admin Dashboard | ClinicQ",
@@ -8,8 +8,64 @@ export const metadata = {
 };
 
 export default function AdminDashboard() {
+  const adminActivities = [
+    {
+      id: 1,
+      title: "Today's Booking",
+      val: 12,
+    },
+    {
+      id: 2,
+      title: "This Week",
+      val: 45,
+    },
+    {
+      id: 3,
+      title: "Cancelled(week)",
+      val: 5,
+    },
+    {
+      id: 4,
+      title: "avg per day",
+      val: 14.8,
+    },
+  ];
+
+  const patientSchedules = [
+    {
+      id: 1,
+      time: "9:00am",
+      patient: "Mr. Chinedu Thomas",
+      status: true,
+    },
+    {
+      id: 2,
+      time: "11:00am",
+      patient: "Miss. Dorathy Manchie",
+      status: true,
+    },
+    {
+      id: 3,
+      time: "8:00am",
+      patient: "Mr. & Mrs. Stephen Aleche",
+      status: false,
+    },
+    {
+      id: 4,
+      time: "10:00am",
+      patient: "Mr. Timothy Audu",
+      status: false,
+    },
+    {
+      id: 5,
+      time: "9:00am",
+      patient: "Mrs. Maggie Finn",
+      status: true,
+    },
+  ];
+
   return (
-    <div className="bg-clinic-bg relative top-0 left-0 w-full h-screen flex items-center justify-center">
+    <div className="bg-clinic-bg w-full h-full items-center">
       <div className="absolute top-0 left-0 z-50 w-full bg-white/70 backdrop-blur-md shadow">
         <nav className="flex justify-between items-center max-w-7xl mx-auto px-24 py-6 sm:px-6 lg:px-8">
           <Link href="/">
@@ -37,7 +93,65 @@ export default function AdminDashboard() {
           </div>
         </nav>
       </div>
-      <h1 className="text-xl font-semibold text-clinic-brand">ClinicQ Admin</h1>
+      <section className="max-w-7xl mx-auto mt-42">
+        <div className="">
+          <ul className="grid grid-cols-2 gap-6">
+            {adminActivities.map((adminActivity) => (
+              <li
+                key={adminActivity.id}
+                className="bg-clinic-bg p-4 rounded-xl shadow-xl space-y-4"
+              >
+                <h3 className="text-sm text-clinic-brand">
+                  {adminActivity.title}
+                </h3>
+                <p
+                  className={`font-bold text-2xl ${adminActivity.val < 6 ? "text-clinic-CTA" : "text-clinic-brand"}`}
+                >
+                  {adminActivity.val}
+                </p>
+              </li>
+            ))}
+          </ul>
+        </div>
+        <div>
+          {/* <label htmlFor="today">Today</label> */}
+          {/* <label htmlFor="providers">All Providers</label> */}
+        </div>
+        <div className="max-w-7xl mx-auto mt-42 text-center pb-20">
+          <div className="grid grid-cols-3 justify-between items-center py-4">
+            <h3 className="font-bold">Time</h3>
+            <h3 className="font-bold">Patient</h3>
+            <h3 className="font-bold">Status</h3>
+          </div>
+          <hr className="text-clinic-gray/25" />
+          {patientSchedules.map((patientSchedule) => (
+            <ul className="">
+              <li
+                key={patientSchedule.id}
+                className="grid grid-cols-3 justify-between items-center py-4"
+              >
+                <p className="">{patientSchedule.time}</p>
+                <p className="">{patientSchedule.patient}</p>
+                <div className="grid grid-cols-2 justify-evenly items-center">
+                  <p
+                    className={`${patientSchedule.status ? "bg-clinic-success/15" : "bg-clinic-danger/15"} rounded-xl w-1/2 mx-auto px-3 py-1.5`}
+                  >
+                    {patientSchedule.status ? "Confirmed" : "Cancelled"}{" "}
+                  </p>
+                  <p className="mx-auto">
+                    {patientSchedule.status ? (
+                      <Check className=" text-clinic-brand hover:cursor-pointer" />
+                    ) : (
+                      <X className=" text-clinic-brand hover:cursor-pointer" />
+                    )}
+                  </p>
+                </div>
+              </li>
+              <hr className="text-clinic-gray/25" />
+            </ul>
+          ))}
+        </div>
+      </section>
     </div>
   );
 }

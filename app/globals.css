@@ -6,6 +6,9 @@
 }
 
 @theme inline {
+  --font-sans: var(--font-sans), system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-serif: var(--font-serif), Georgia, Cambria, "Times New Roman", serif;
+
   /* full palette for clinic website */
   --color-clinic-brand: #1c3d5a;
   --color-clinic-bg: #faf7f2;
@@ -16,9 +19,19 @@
   --color-clinic-danger: #d9534f;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #faf7f2;
+html {
+  scroll-behavior: smooth;
+  background-color: var(--color-clinic-bg);
+  color: var(--color-clinic-slate);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
   }
 }
